@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Interface">
+      <UniqueIdentifier>{7bcbe12e-4e55-49bd-a057-9781146d17b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{cf58969a-744b-4dd9-a1e7-ce6aca5ed5a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithm">
+      <UniqueIdentifier>{8d0891c1-9f83-4fee-8467-76a7e179f2aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithm\MinesGenerator">
+      <UniqueIdentifier>{3c2606df-408e-43de-830f-81820b4f0f93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shared">
+      <UniqueIdentifier>{eb82f78e-5660-4477-b29c-1ce96742367b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Enum">
+      <UniqueIdentifier>{c4f9099e-8d5c-492c-9891-e5e1f5374d8a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Interface\Noncopyable.hpp">
+      <Filter>Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameContext.hpp">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameBoard.hpp">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Algorithm\MinesGenerator\MinesGenerator.hpp">
+      <Filter>Algorithm\MinesGenerator</Filter>
+    </ClInclude>
+    <ClInclude Include="Shared\Location.hpp">
+      <Filter>Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameRuntime.hpp">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Enum\GameBlockType.hpp">
+      <Filter>Game\Enum</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Enum\GameBlockStatus.hpp">
+      <Filter>Game\Enum</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Game\GameContext.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameBoard.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
