@@ -45,12 +45,21 @@
     <ClInclude Include="Game\Enum\GameBlockStatus.hpp">
       <Filter>Game\Enum</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Enum\GameStatus.hpp">
+      <Filter>Game\Enum</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Enum\GameCommand.hpp">
+      <Filter>Game\Enum</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game\GameContext.cpp">
       <Filter>Game</Filter>
     </ClCompile>
     <ClCompile Include="Game\GameBoard.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameRuntime.cpp">
       <Filter>Game</Filter>
     </ClCompile>
   </ItemGroup>

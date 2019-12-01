@@ -3,10 +3,9 @@
 namespace Minesweeper {
 
 	enum class GameBlockStatus : unsigned {
-		eUnknown,
-		eKnown,
-		eHide,
-		eFlag,
+		eUnknown = 0,
+		eKnown = 1,
+		eFlag = 2,
 	};
 	
 }

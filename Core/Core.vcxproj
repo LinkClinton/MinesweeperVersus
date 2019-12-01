@@ -153,6 +153,8 @@
     <ClInclude Include="Algorithm\MinesGenerator\MinesGenerator.hpp" />
     <ClInclude Include="Game\Enum\GameBlockStatus.hpp" />
     <ClInclude Include="Game\Enum\GameBlockType.hpp" />
+    <ClInclude Include="Game\Enum\GameCommand.hpp" />
+    <ClInclude Include="Game\Enum\GameStatus.hpp" />
     <ClInclude Include="Game\GameBoard.hpp" />
     <ClInclude Include="Game\GameContext.hpp" />
     <ClInclude Include="Game\GameRuntime.hpp" />
@@ -162,6 +164,7 @@
   <ItemGroup>
     <ClCompile Include="Game\GameBoard.cpp" />
     <ClCompile Include="Game\GameContext.cpp" />
+    <ClCompile Include="Game\GameRuntime.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
