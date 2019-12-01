@@ -151,6 +151,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Algorithm\MinesGenerator\MinesGenerator.hpp" />
+    <ClInclude Include="Algorithm\MinesGenerator\RandomMinesGenerator.hpp" />
     <ClInclude Include="Game\Enum\GameBlockStatus.hpp" />
     <ClInclude Include="Game\Enum\GameBlockType.hpp" />
     <ClInclude Include="Game\Enum\GameCommand.hpp" />
@@ -162,6 +163,7 @@
     <ClInclude Include="Shared\Location.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Algorithm\MinesGenerator\RandomMinesGenerator.cpp" />
     <ClCompile Include="Game\GameBoard.cpp" />
     <ClCompile Include="Game\GameContext.cpp" />
     <ClCompile Include="Game\GameRuntime.cpp" />

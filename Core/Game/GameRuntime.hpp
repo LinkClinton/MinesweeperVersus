@@ -12,11 +12,15 @@
 #include <memory>
 #include <vector>
 
+#ifdef near
+#undef near
+#endif
+
 namespace Minesweeper {
 
 	struct GameBlock {
 		GameBlockStatus Status = GameBlockStatus::eUnknown;
-		GameBlockType Type = GameBlockType::eMine;
+		GameBlockType Type = GameBlockType::e0;
 
 		GameBlock() = default;
 

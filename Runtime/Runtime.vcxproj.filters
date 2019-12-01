@@ -2,9 +2,57 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClInclude Include="MinesweeperApp.hpp" />
+    <ClInclude Include="Manager\Manager.hpp">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="RuntimeSharing.hpp" />
+    <ClInclude Include="Manager\UI\UIManager.hpp">
+      <Filter>Manager\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager\UI\Component\UIComponent.hpp">
+      <Filter>Manager\UI\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager\UI\Component\MainMenuUIComponent.hpp">
+      <Filter>Manager\UI\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager\UI\Component\GameSceneUIComponent.hpp">
+      <Filter>Manager\UI\Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MinesweeperApp.cpp" />
+    <ClCompile Include="RuntimeSharing.cpp" />
+    <ClCompile Include="Manager\UI\UIManager.cpp">
+      <Filter>Manager\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Manager\UI\Component\MainMenuUIComponent.cpp">
+      <Filter>Manager\UI\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Manager\UI\Component\GameSceneUIComponent.cpp">
+      <Filter>Manager\UI\Component</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Manager">
+      <UniqueIdentifier>{6dfeeebd-c6f3-440f-9912-dce6fe5477c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\UI">
+      <UniqueIdentifier>{1bfc231d-fcd7-420d-9ca9-8049ba7c2a69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\UI\Component">
+      <UniqueIdentifier>{52d0f329-9889-4292-bea4-8c38a56ad0bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{d78b08b5-73f2-4626-86fb-cf38056db41e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Fonts">
+      <UniqueIdentifier>{9ba2aa2a-cdab-46eb-a268-b4d9f49cfee6}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="Resources\Fonts\Consola.ttf">
+      <Filter>Resources\Fonts</Filter>
+    </Font>
   </ItemGroup>
 </Project>

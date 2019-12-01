@@ -1,6 +1,10 @@
 #include "MinesweeperApp.hpp"
 
 #include "../Extensions/ImGui/imgui_impl_win32.hpp"
+#include "../Core/Game/GameContext.hpp"
+
+#include "Manager/UI/UIManager.hpp"
+#include "RuntimeSharing.hpp"
 
 #include <chrono>
 
@@ -33,6 +37,8 @@ LRESULT DefaultWindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 Minesweeper::MinesweeperApp::MinesweeperApp(const std::string& name, size_t width, size_t height)
 	: mName(name), mWidth(width), mHeight(height), mHwnd(nullptr), mExisted(false)
 {
+	mRuntimeSharing = std::make_shared<RuntimeSharing>(this);
+	
 	const auto hInstance = GetModuleHandle(nullptr);
 	const auto class_name = this->name();
 
@@ -70,6 +76,8 @@ Minesweeper::MinesweeperApp::MinesweeperApp(const std::string& name, size_t widt
 	ImGui_ImplWin32_Init(mHwnd);
 
 	initializeCodeRedComponents();
+	initializeManagerComponents();
+	initializeGameComponents();
 }
 
 Minesweeper::MinesweeperApp::~MinesweeperApp()
@@ -129,8 +137,19 @@ void Minesweeper::MinesweeperApp::initializeCodeRedComponents()
 	initializeSwapChain();
 }
 
+void Minesweeper::MinesweeperApp::initializeManagerComponents()
+{
+	initializeUIManager();
+}
+
+void Minesweeper::MinesweeperApp::initializeGameComponents()
+{
+	initializeGameContext();
+}
+
 void Minesweeper::MinesweeperApp::update(float delta)
 {
+	mUIManager->update(delta);
 }
 
 void Minesweeper::MinesweeperApp::render(float delta)
@@ -140,6 +159,8 @@ void Minesweeper::MinesweeperApp::render(float delta)
 
 	auto commandLists = std::vector<std::shared_ptr<CodeRed::GpuGraphicsCommandList>>();
 
+	commandLists.push_back(mUIManager->render(mFrameBuffers[mCurrentFrameIndex], delta));
+	
 	mCommandQueue->execute(commandLists);
 
 	mSwapChain->present();
@@ -188,6 +209,29 @@ void Minesweeper::MinesweeperApp::initializeSwapChain()
 	mRenderPass = mDevice->createRenderPass(
 		CodeRed::Attachment::RenderTarget(mSwapChain->format())
 	);
+
+	mRenderPass->setClear(CodeRed::ClearValue());
+}
+
+void Minesweeper::MinesweeperApp::initializeUIManager()
+{
+	ImGui::StyleColorsLight();
+
+	mUIManager = std::make_shared<UIManager>(
+		mRuntimeSharing,
+		mDevice,
+		mRenderPass,
+		mCommandAllocator,
+		mCommandQueue,
+		width(), height());
+}
+
+void Minesweeper::MinesweeperApp::initializeGameContext()
+{
+	mGameContext = std::make_shared<GameContext>();
+
+	mGameContext->setGameBoard(100, 16, 30);
+	mGameContext->startGame();
 }
 
 void Minesweeper::MinesweeperApp::processMessage(MinesweeperApp* app, const MSG& message)

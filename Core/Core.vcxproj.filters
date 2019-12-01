@@ -51,6 +51,9 @@
     <ClInclude Include="Game\Enum\GameCommand.hpp">
       <Filter>Game\Enum</Filter>
     </ClInclude>
+    <ClInclude Include="Algorithm\MinesGenerator\RandomMinesGenerator.hpp">
+      <Filter>Algorithm\MinesGenerator</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game\GameContext.cpp">
@@ -61,6 +64,9 @@
     </ClCompile>
     <ClCompile Include="Game\GameRuntime.cpp">
       <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Algorithm\MinesGenerator\RandomMinesGenerator.cpp">
+      <Filter>Algorithm\MinesGenerator</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
