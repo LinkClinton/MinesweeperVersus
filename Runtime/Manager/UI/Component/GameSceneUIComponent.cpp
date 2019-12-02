@@ -53,16 +53,24 @@ void Minesweeper::GameSceneUIComponent::update()
 		" ##", "1##", "2##", "3##", "4##", "5##", "6##", "7##", "8##", "X##"
 	};
 
+	const auto hoverMap = mNextHoverMapped;
 	const auto blockSize = ImVec2(
 		extent - ImGui::GetStyle().FramePadding.y,
 		extent - ImGui::GetStyle().FramePadding.y);
 
+	mNextHoverMapped.clear();
+	
 	for (size_t y = 0; y < height; y++) {
 		for (size_t x = 0; x < width; x++) {
 
 			const auto location = Location(x, y);
 			const auto block = gameContext->runtime()->block(location);
 			const auto index = gameContext->runtime()->index(location);
+			const auto color = hoverMap.find(index) != hoverMap.end() || block.Status == GameBlockStatus::eKnown ?
+				ImGui::GetStyleColorVec4(ImGuiCol_ButtonHovered) :
+				ImGui::GetStyleColorVec4(ImGuiCol_Button);
+
+			ImGui::PushStyleColor(ImGuiCol_Button, color);
 
 			if (block.Status == GameBlockStatus::eFlag) {
 				ImGui::Button(("F##" + std::to_string(index)).c_str() , blockSize);
@@ -85,18 +93,27 @@ void Minesweeper::GameSceneUIComponent::update()
 			}
 
 			if (block.Status == GameBlockStatus::eKnown) {
-				ImGui::PushStyleColor(ImGuiCol_Button, ImGui::GetStyleColorVec4(ImGuiCol_ButtonHovered));
-				
 				ImGui::Button((typeMapped[enumConvert(block.Type)] + std::to_string(index)).c_str(), blockSize);
 
-				if (ImGui::IsMouseDoubleClicked(0))
+				if (ImGui::IsMouseDown(1) && ImGui::IsItemHovered())
 				{
 					gameContext->runtime()->command(location, GameCommand::eCheckAll);
+
+					const auto nearBlocks = gameContext->runtime()->near(location);
+
+					for (const auto& nearBlock : nearBlocks) {
+						if (gameContext->runtime()->block(nearBlock).Status == GameBlockStatus::eFlag)
+							continue;
+
+						mNextHoverMapped.insert({
+							gameContext->runtime()->index(nearBlock),
+							gameContext->runtime()->index(nearBlock) });
+					}
 				}
-				
-				ImGui::PopStyleColor();
 			}
 			
+			ImGui::PopStyleColor();
+
 			if (x != width - 1) 
 				ImGui::SameLine(0, ImGui::GetStyle().FramePadding.y);
 		}

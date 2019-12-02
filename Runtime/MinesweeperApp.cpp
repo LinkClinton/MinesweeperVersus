@@ -8,7 +8,7 @@
 
 #include <chrono>
 
-#define __DIRECTX12__MODE__
+//#define __DIRECTX12__MODE__
 #ifndef __DIRECTX12__MODE__
 #define __VULKAN__MODE__
 #endif
@@ -230,7 +230,7 @@ void Minesweeper::MinesweeperApp::initializeGameContext()
 {
 	mGameContext = std::make_shared<GameContext>();
 
-	mGameContext->setGameBoard(100, 16, 30);
+	mGameContext->setGameBoard(50, 16, 30);
 	mGameContext->startGame();
 }
 

@@ -12,6 +12,8 @@ namespace Minesweeper {
 		~GameSceneUIComponent() = default;
 	private:
 		void update();
+	private:
+		std::unordered_map<size_t, size_t> mNextHoverMapped;
 	};
 	
 }

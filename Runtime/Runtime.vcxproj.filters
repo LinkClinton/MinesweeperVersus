@@ -51,8 +51,8 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <Font Include="Resources\Fonts\Consola.ttf">
+    <CopyFileToFolders Include="Resources\Fonts\Consola.ttf">
       <Filter>Resources\Fonts</Filter>
-    </Font>
+    </CopyFileToFolders>
   </ItemGroup>
 </Project>
