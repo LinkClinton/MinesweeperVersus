@@ -2,6 +2,8 @@
 
 #include "../../../../Core/Game/GameContext.hpp"
 
+#include "GameConfigUIComponent.hpp"
+
 #include "../UIManager.hpp"
 
 Minesweeper::GameSceneUIComponent::GameSceneUIComponent(const std::shared_ptr<RuntimeSharing>& sharing) :
@@ -58,7 +60,15 @@ void Minesweeper::GameSceneUIComponent::update()
 		extent - ImGui::GetStyle().FramePadding.y,
 		extent - ImGui::GetStyle().FramePadding.y);
 
+	const auto gameConfig = std::static_pointer_cast<GameConfigUIComponent>(
+		mRuntimeSharing->uiManager()->components().at("GameConfig"));
+
+	const auto checkButton = gameConfig->isSwapMouseButton() ? 1 : 0;
+	const auto flagsButton = gameConfig->isSwapMouseButton() ? 0 : 1;
+
 	mNextHoverMapped.clear();
+
+	const auto beforeStatus = gameContext->runtime()->gameStatus();
 	
 	for (size_t y = 0; y < height; y++) {
 		for (size_t x = 0; x < width; x++) {
@@ -75,19 +85,21 @@ void Minesweeper::GameSceneUIComponent::update()
 			if (block.Status == GameBlockStatus::eFlag) {
 				ImGui::Button(("F##" + std::to_string(index)).c_str() , blockSize);
 				
-				//when we click the right button
-				if (ImGui::IsItemClicked(1)) {
+				//when we click the flags button
+				if (ImGui::IsItemClicked(flagsButton)) {
 					gameContext->runtime()->command(location, GameCommand::eFlag);
 				}
 			}
 
 			if (block.Status == GameBlockStatus::eUnknown) {
-				if (ImGui::Button((" ##" + std::to_string(index)).c_str(), blockSize)) {
+				ImGui::Button((" ##" + std::to_string(index)).c_str(), blockSize);
+
+				if (ImGui::IsItemClicked(checkButton)) {
 					gameContext->runtime()->command(location, GameCommand::eCheck);
 				}
 
-				//when we click the right button
-				if (ImGui::IsItemClicked(1)) {
+				//when we click the flags button
+				if (ImGui::IsItemClicked(flagsButton)) {
 					gameContext->runtime()->command(location, GameCommand::eFlag);
 				}
 			}
@@ -95,7 +107,7 @@ void Minesweeper::GameSceneUIComponent::update()
 			if (block.Status == GameBlockStatus::eKnown) {
 				ImGui::Button((typeMapped[enumConvert(block.Type)] + std::to_string(index)).c_str(), blockSize);
 
-				if (ImGui::IsMouseDown(1) && ImGui::IsItemHovered())
+				if (ImGui::IsMouseDown(flagsButton) && ImGui::IsItemHovered())
 				{
 					gameContext->runtime()->command(location, GameCommand::eCheckAll);
 
@@ -119,7 +131,16 @@ void Minesweeper::GameSceneUIComponent::update()
 		}
 	}
 
+	const auto afterStatus = gameContext->runtime()->gameStatus();
+
 	updateProperties();
 
 	ImGui::End();
+
+	//When the before status and after status is not same
+	//It means the game is finished, so we need open the box
+	if (afterStatus != beforeStatus) {
+		mRuntimeSharing->uiManager()->components().at("GameFinish")->show();
+		ImGui::OpenPopup("Message##GameFinish");
+	}
 }

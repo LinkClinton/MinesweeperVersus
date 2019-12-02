@@ -1,5 +1,7 @@
 #include "MainMenuUIComponent.hpp"
 
+#include "../../Core/Game/GameContext.hpp"
+
 #include "../UIManager.hpp"
 
 Minesweeper::MainMenuUIComponent::MainMenuUIComponent(const std::shared_ptr<RuntimeSharing>& sharing) :
@@ -15,11 +17,21 @@ void Minesweeper::MainMenuUIComponent::update()
 {
 	if (mShow == false) return;
 
+	auto openGameConfig = false;
+	
 	ImGui::BeginMainMenuBar();
 
 	if (ImGui::BeginMenu("Game")) {
 
-		ImGui::MenuItem("New");
+		if (ImGui::MenuItem("New")) {
+			mRuntimeSharing->context()->startGame();
+		}
+
+		if (ImGui::MenuItem("Config")) {
+			mRuntimeSharing->uiManager()->components().at("GameConfig")->show();
+
+			openGameConfig = true;
+		}
 		
 		ImGui::EndMenu();
 	}
@@ -40,6 +52,8 @@ void Minesweeper::MainMenuUIComponent::update()
 	updateProperties();
 
 	ImGui::EndMainMenuBar();
+
+	if (openGameConfig) ImGui::OpenPopup("GameConfig");
 }
 
 auto Minesweeper::MainMenuUIComponent::nameIndex(const std::string& name) const -> size_t

@@ -1,5 +1,8 @@
 #include "UIManager.hpp"
 
+#include "Component/GameFinishUIComponent.hpp"
+#include "Component/GameConfigUIComponent.hpp"
+#include "Component/GameStatusUIComponent.hpp"
 #include "Component/GameSceneUIComponent.hpp"
 #include "Component/MainMenuUIComponent.hpp"
 
@@ -26,6 +29,9 @@ Minesweeper::UIManager::UIManager(
 
 	addComponent("MainMenu", std::make_shared<MainMenuUIComponent>(mRuntimeSharing));
 	addComponent("GameScene", std::make_shared<GameSceneUIComponent>(mRuntimeSharing));
+	addComponent("GameStatus", std::make_shared<GameStatusUIComponent>(mRuntimeSharing));
+	addComponent("GameConfig", std::make_shared<GameConfigUIComponent>(mRuntimeSharing));
+	addComponent("GameFinish", std::make_shared<GameFinishUIComponent>(mRuntimeSharing));
 }
 
 void Minesweeper::UIManager::update(float delta)

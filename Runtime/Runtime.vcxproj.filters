@@ -18,6 +18,15 @@
     <ClInclude Include="Manager\UI\Component\GameSceneUIComponent.hpp">
       <Filter>Manager\UI\Component</Filter>
     </ClInclude>
+    <ClInclude Include="Manager\UI\Component\GameStatusUIComponent.hpp">
+      <Filter>Manager\UI\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager\UI\Component\GameConfigUIComponent.hpp">
+      <Filter>Manager\UI\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager\UI\Component\GameFinishUIComponent.hpp">
+      <Filter>Manager\UI\Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -30,6 +39,15 @@
       <Filter>Manager\UI\Component</Filter>
     </ClCompile>
     <ClCompile Include="Manager\UI\Component\GameSceneUIComponent.cpp">
+      <Filter>Manager\UI\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Manager\UI\Component\GameStatusUIComponent.cpp">
+      <Filter>Manager\UI\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Manager\UI\Component\GameConfigUIComponent.cpp">
+      <Filter>Manager\UI\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Manager\UI\Component\GameFinishUIComponent.cpp">
       <Filter>Manager\UI\Component</Filter>
     </ClCompile>
   </ItemGroup>

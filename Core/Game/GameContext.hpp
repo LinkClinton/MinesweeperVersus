@@ -31,7 +31,7 @@ namespace Minesweeper {
 		std::shared_ptr<MinesGenerator> mMinesGenerator;
 		std::shared_ptr<GameRuntime> mGameRuntime;
 		std::shared_ptr<GameBoard> mGameBoard;
-		
+
 		std::optional<size_t> mMines;
 		size_t mBoardHeight;
 		size_t mBoardWidth;

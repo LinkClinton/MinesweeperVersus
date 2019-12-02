@@ -29,16 +29,26 @@ Minesweeper::GameRuntime::GameRuntime(const std::shared_ptr<GameBoard>& initGame
 		mBoardBlocks[index].Type = toGameBlockType(nearMines(location).size());
 		mBoardBlocks[index].Status = GameBlockStatus::eUnknown;
 	}
+
+	mStartTime = std::chrono::high_resolution_clock::now();
 }
 
 auto Minesweeper::GameRuntime::command(const Location& location, const GameCommand& command) -> GameStatus
 {
+	if (mGameStatus != GameStatus::eCommon) return mGameStatus;
+	
 	switch (command) {
-	case GameCommand::eCheckAll: return executeCheckAllCommand(location);
-	case GameCommand::eCheck: return executeCheckCommand(location);
-	case GameCommand::eFlag: return executeFlagCommand(location);
+	case GameCommand::eCheckAll: mGameStatus = executeCheckAllCommand(location); break;
+	case GameCommand::eCheck: mGameStatus = executeCheckCommand(location); break;
+	case GameCommand::eFlag: mGameStatus = executeFlagCommand(location); break;
 	default: throw "No Command";
 	}
+
+	//when the game is finished, we need update the end time
+	if (mGameStatus != GameStatus::eCommon)
+		mEndTime = std::chrono::high_resolution_clock::now();
+	
+	return mGameStatus;
 }
 
 auto Minesweeper::GameRuntime::near(const Location& location) const -> std::vector<Location>
@@ -125,6 +135,11 @@ auto Minesweeper::GameRuntime::valid(const size_t& index) const noexcept -> bool
 	return index < mBoardBlocks.size();
 }
 
+auto Minesweeper::GameRuntime::gameStatus() const noexcept -> GameStatus
+{
+	return mGameStatus;
+}
+
 auto Minesweeper::GameRuntime::board() const noexcept -> std::shared_ptr<GameBoard>
 {
 	return mInitGameBoard;
@@ -135,15 +150,35 @@ auto Minesweeper::GameRuntime::blocks() const noexcept -> std::vector<GameBlock>
 	return mBoardBlocks;
 }
 
+auto Minesweeper::GameRuntime::nFlags() const noexcept -> size_t
+{
+	return mFlags;
+}
+
+auto Minesweeper::GameRuntime::time() const noexcept -> std::chrono::high_resolution_clock::duration
+{
+	if (mEndTime != std::chrono::high_resolution_clock::time_point())
+		return mEndTime - mStartTime;
+	else
+		return std::chrono::high_resolution_clock::now() - mStartTime;
+}
+
 auto Minesweeper::GameRuntime::executeCheckStatusCommand() const -> GameStatus
 {
-	if (mFlags != mMines) return GameStatus::eCommon;
+	for (const auto& block : mBoardBlocks) {
+		if (block.Type != GameBlockType::eMine && block.Status != GameBlockStatus::eKnown)
+			return GameStatus::eCommon;
+	}
+
+	return GameStatus::eWin;
+
+	/*if (mFlags != mMines) return GameStatus::eCommon;
 
 	for (const auto& mine : mInitGameBoard->mines()) {
 		if (mBoardBlocks[index(mine)].Status != GameBlockStatus::eFlag) return GameStatus::eCommon;
 	}
 
-	return GameStatus::eWin;
+	return GameStatus::eWin;*/
 }
 
 auto Minesweeper::GameRuntime::executeCheckAllCommand(const Location& start) -> GameStatus

@@ -167,7 +167,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Manager\Manager.hpp" />
+    <ClInclude Include="Manager\UI\Component\GameConfigUIComponent.hpp" />
+    <ClInclude Include="Manager\UI\Component\GameFinishUIComponent.hpp" />
     <ClInclude Include="Manager\UI\Component\GameSceneUIComponent.hpp" />
+    <ClInclude Include="Manager\UI\Component\GameStatusUIComponent.hpp" />
     <ClInclude Include="Manager\UI\Component\MainMenuUIComponent.hpp" />
     <ClInclude Include="Manager\UI\Component\UIComponent.hpp" />
     <ClInclude Include="Manager\UI\UIManager.hpp" />
@@ -190,7 +193,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Manager\UI\Component\GameConfigUIComponent.cpp" />
+    <ClCompile Include="Manager\UI\Component\GameFinishUIComponent.cpp" />
     <ClCompile Include="Manager\UI\Component\GameSceneUIComponent.cpp" />
+    <ClCompile Include="Manager\UI\Component\GameStatusUIComponent.cpp" />
     <ClCompile Include="Manager\UI\Component\MainMenuUIComponent.cpp" />
     <ClCompile Include="Manager\UI\UIManager.cpp" />
     <ClCompile Include="MinesweeperApp.cpp" />

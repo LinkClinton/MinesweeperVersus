@@ -9,6 +9,7 @@
 
 #include "GameBoard.hpp"
 
+#include <chrono>
 #include <memory>
 #include <vector>
 
@@ -54,10 +55,16 @@ namespace Minesweeper {
 		auto valid(const Location& location) const noexcept -> bool;
 
 		auto valid(const size_t& index) const noexcept -> bool;
+
+		auto gameStatus() const noexcept -> GameStatus;
 		
 		auto board() const noexcept -> std::shared_ptr<GameBoard>;
 		
 		auto blocks() const noexcept -> std::vector<GameBlock>;
+
+		auto nFlags() const noexcept -> size_t;
+
+		auto time() const noexcept -> std::chrono::high_resolution_clock::duration;
 	private:
 		auto executeCheckStatusCommand() const -> GameStatus;
 
@@ -67,10 +74,15 @@ namespace Minesweeper {
 		
 		auto executeFlagCommand(const Location& location) -> GameStatus;
 	private:
+		std::chrono::high_resolution_clock::time_point mStartTime;
+		std::chrono::high_resolution_clock::time_point mEndTime;
+		
 		std::shared_ptr<GameBoard> mInitGameBoard;
 
 		std::vector<GameBlock> mBoardBlocks;
 
+		GameStatus mGameStatus = GameStatus::eCommon;
+		
 		size_t mFlags = 0;
 		size_t mMines = 0;
 	};
