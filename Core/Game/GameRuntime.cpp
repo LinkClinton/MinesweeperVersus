@@ -2,6 +2,10 @@
 
 #include <queue>
 
+#ifdef near
+#undef near
+#endif
+
 Minesweeper::GameBlock::GameBlock(const GameBlockStatus& status, const GameBlockType& type) :
 	Status(status), Type(type)
 {
@@ -45,8 +49,12 @@ auto Minesweeper::GameRuntime::command(const Location& location, const GameComma
 	}
 
 	//when the game is finished, we need update the end time
-	if (mGameStatus != GameStatus::eCommon)
+	//and we will show all blocks status
+	if (mGameStatus != GameStatus::eCommon) {
 		mEndTime = std::chrono::high_resolution_clock::now();
+
+		for (auto& block : mBoardBlocks) block.Status = GameBlockStatus::eKnown;
+	}
 	
 	return mGameStatus;
 }
@@ -186,44 +194,45 @@ auto Minesweeper::GameRuntime::executeCheckAllCommand(const Location& start) -> 
 	auto isVisited = std::vector<bool>(mBoardBlocks.size(), false);
 	auto queue = std::queue<Location>();
 
+	const auto nearMines = GameRuntime::nearMines(start);
+	const auto nearFlags = GameRuntime::nearFlags(start);
+	const auto near = GameRuntime::near(start);
+
+	if (nearMines.size() != nearFlags.size()) return GameStatus::eCommon;
+
 	isVisited[index(start)] = true;
+	
+	for (const auto& block : near) {
+		if (mBoardBlocks[index(block)].Status == GameBlockStatus::eFlag) continue;
 
-	queue.push(start);
-
+		isVisited[index(block)] = true;
+		
+		queue.push(block);
+	}
+	
 	while (!queue.empty()) {
 		const auto location = queue.front(); queue.pop();
 		const auto index = GameRuntime::index(location);
 
-		//if the block is not known, we can not run check all command
-		//so we only ignore this command
-		if (mBoardBlocks[index].Status != GameBlockStatus::eKnown) continue;
+		mBoardBlocks[index].Status = GameBlockStatus::eKnown;
 
-		const auto nearMines = GameRuntime::nearMines(location);
-		const auto nearFlags = GameRuntime::nearFlags(location);
+		//if we get a mine, we lost the game
+		if (mBoardBlocks[index].Type == GameBlockType::eMine) return GameStatus::eLost;
 
-		//if the number of near flags and the number of near mines are not same
-		//we can not execute this command
-		if (nearMines.size() != nearFlags.size()) continue;
+		//if we get a zero block, it means the near blocks are not mine
+		//so we can check these blocks
+		if (mBoardBlocks[index].Type == GameBlockType::e0) {
+			const auto nearBlocks = GameRuntime::near(location);
 
-		const auto nearBlocks = near(location);
+			for (const auto& block : nearBlocks) {
+				const auto blockIndex = GameRuntime::index(block);
 
-		for (const auto &block : nearBlocks) {
-			const auto blockIndex = GameRuntime::index(block);
+				if (isVisited[blockIndex]) continue;
 
-			//we do not need to update the block that has flag
-			//or we had visited
-			if (mBoardBlocks[blockIndex].Status == GameBlockStatus::eFlag ||
-				isVisited[blockIndex]) continue;
+				isVisited[blockIndex] = true;
 
-			mBoardBlocks[blockIndex].Status = GameBlockStatus::eKnown;
-
-			//if the flags are not right, we will get mines
-			//so we lost the game
-			if (mBoardBlocks[blockIndex].Type == GameBlockType::eMine) return GameStatus::eLost;
-
-			isVisited[blockIndex] = true;
-
-			queue.push(block);
+				queue.push(block);
+			}
 		}
 	}
 

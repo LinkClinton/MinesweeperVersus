@@ -20,17 +20,12 @@ void Minesweeper::GameFinishUIComponent::update()
 	static auto imGuiWindowFlags =
 		ImGuiWindowFlags_NoMove |
 		ImGuiWindowFlags_NoResize |
-		ImGuiWindowFlags_NoCollapse |
+		ImGuiWindowFlags_NoCollapse | 
 		ImGuiWindowFlags_AlwaysAutoResize;
 
 	if (ImGui::BeginPopupModal("Message##GameFinish", &mShow, imGuiWindowFlags)) {
 
-		const auto buttonSize = ImVec2(
-			mRuntimeSharing->uiManager()->width() * 0.1f,
-			mRuntimeSharing->uiManager()->height() * 0.05f
-		);
-
-		if (ImGui::Button("Start New Game?", buttonSize)) {
+		if (ImGui::Button("Start New Game?")) {
 			mRuntimeSharing->context()->startGame();
 			mShow = false;
 		}
