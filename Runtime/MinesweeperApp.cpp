@@ -124,10 +124,32 @@ void Minesweeper::MinesweeperApp::runLoop()
 		currentTime = Time::now();
 
 		ImGui_ImplWin32_NewFrame();
-
+		
 		update(duration.count());
 		render(duration.count());
 	}
+}
+
+void Minesweeper::MinesweeperApp::resize(const size_t width, const size_t height)
+{
+	mWidth = width;
+	mHeight = height;
+
+	RECT rect;
+
+	rect.top = 0;
+	rect.left = 0;
+	rect.right = static_cast<UINT>(mWidth);
+	rect.bottom = static_cast<UINT>(mHeight);
+
+	AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, FALSE);
+	
+	SetWindowPos(mHwnd, nullptr, 0, 0, 
+		rect.right - rect.left,
+		rect.bottom - rect.top,
+		SWP_NOMOVE | SWP_NOOWNERZORDER | SWP_NOREPOSITION);
+
+	mUIManager->resize(mWidth, mHeight);
 }
 
 void Minesweeper::MinesweeperApp::initializeCodeRedComponents()
@@ -156,6 +178,21 @@ void Minesweeper::MinesweeperApp::render(float delta)
 {
 	mCommandQueue->waitIdle();
 	mCommandAllocator->reset();
+
+	if (mSwapChain->width() != mWidth || mSwapChain->height() != mHeight) {
+		mFrameBuffers.clear();
+		mSwapChain->resize(mWidth, mHeight);
+
+		for (size_t index = 0; index < mSwapChain->bufferCount(); index++) {
+			mFrameBuffers.push_back(
+				mDevice->createFrameBuffer(
+					mSwapChain->buffer(index)
+				)
+			);
+		}
+		
+		mCurrentFrameIndex = 0;
+	}
 
 	auto commandLists = std::vector<std::shared_ptr<CodeRed::GpuGraphicsCommandList>>();
 

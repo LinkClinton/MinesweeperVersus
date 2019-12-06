@@ -17,6 +17,8 @@ namespace Minesweeper {
 		explicit RuntimeSharing(MinesweeperApp* minesweeperApp);
 
 		auto uiManager() const noexcept -> std::shared_ptr<UIManager>;
+
+		auto app() const noexcept -> MinesweeperApp*;
 		
 		auto allocator() const noexcept -> std::shared_ptr<CodeRed::GpuCommandAllocator>;
 

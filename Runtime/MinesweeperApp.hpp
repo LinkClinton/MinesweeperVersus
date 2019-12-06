@@ -31,6 +31,8 @@ namespace Minesweeper {
 
 		void runLoop();
 
+		void resize(const size_t width, const size_t height);
+		
 		auto width() const noexcept -> size_t { return mWidth; }
 
 		auto height() const noexcept -> size_t { return mHeight; }

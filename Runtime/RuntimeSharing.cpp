@@ -13,6 +13,11 @@ auto Minesweeper::RuntimeSharing::uiManager() const noexcept -> std::shared_ptr<
 	return mMinesweeperApp->mUIManager;
 }
 
+auto Minesweeper::RuntimeSharing::app() const noexcept -> MinesweeperApp* 
+{
+	return mMinesweeperApp;
+}
+
 auto Minesweeper::RuntimeSharing::allocator() const noexcept -> std::shared_ptr<CodeRed::GpuCommandAllocator>
 {
 	return mMinesweeperApp->mCommandAllocator;
