@@ -71,7 +71,7 @@ void Minesweeper::GameConfigUIComponent::update()
 
 				const auto resolution =
 					std::to_string(Resolution[index].first) + "x" +
-					std::to_string(Resolution[index].first);
+					std::to_string(Resolution[index].second);
 				
 				if (ImGui::Selectable(resolution.c_str(), selected)) {
 					mRuntimeSharing->app()->resize(
