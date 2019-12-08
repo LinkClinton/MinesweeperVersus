@@ -168,10 +168,12 @@
   <ItemGroup>
     <ClInclude Include="Manager\File\Component\FileComponent.hpp" />
     <ClInclude Include="Manager\File\Component\GameConfigFileComponent.hpp" />
+    <ClInclude Include="Manager\File\Component\GameModFileComponent.hpp" />
     <ClInclude Include="Manager\File\FileManager.hpp" />
     <ClInclude Include="Manager\Manager.hpp" />
     <ClInclude Include="Manager\UI\Component\GameConfigUIComponent.hpp" />
     <ClInclude Include="Manager\UI\Component\GameFinishUIComponent.hpp" />
+    <ClInclude Include="Manager\UI\Component\GameModUIComponent.hpp" />
     <ClInclude Include="Manager\UI\Component\GameSceneUIComponent.hpp" />
     <ClInclude Include="Manager\UI\Component\GameStatusUIComponent.hpp" />
     <ClInclude Include="Manager\UI\Component\MainMenuUIComponent.hpp" />
@@ -197,9 +199,11 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Manager\File\Component\GameConfigFileComponent.cpp" />
+    <ClCompile Include="Manager\File\Component\GameModFileComponent.cpp" />
     <ClCompile Include="Manager\File\FileManager.cpp" />
     <ClCompile Include="Manager\UI\Component\GameConfigUIComponent.cpp" />
     <ClCompile Include="Manager\UI\Component\GameFinishUIComponent.cpp" />
+    <ClCompile Include="Manager\UI\Component\GameModUIComponent.cpp" />
     <ClCompile Include="Manager\UI\Component\GameSceneUIComponent.cpp" />
     <ClCompile Include="Manager\UI\Component\GameStatusUIComponent.cpp" />
     <ClCompile Include="Manager\UI\Component\MainMenuUIComponent.cpp" />

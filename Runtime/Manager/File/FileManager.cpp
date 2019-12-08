@@ -1,6 +1,7 @@
 #include "FileManager.hpp"
 
 #include "Component/GameConfigFileComponent.hpp"
+#include "Component/GameModFileComponent.hpp"
 
 Minesweeper::FileManager::FileManager(const std::shared_ptr<RuntimeSharing>& sharing) :
 	Manager(sharing)
@@ -10,6 +11,7 @@ Minesweeper::FileManager::FileManager(const std::shared_ptr<RuntimeSharing>& sha
 void Minesweeper::FileManager::initialize()
 {
 	addComponent("GameConfig", std::make_shared<GameConfigFileComponent>());
+	addComponent("GameMod", std::make_shared<GameModFileComponent>());
 }
 
 void Minesweeper::FileManager::finalize()

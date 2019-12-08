@@ -36,6 +36,12 @@
     <ClInclude Include="Manager\File\Component\GameConfigFileComponent.hpp">
       <Filter>Manager\File\Component</Filter>
     </ClInclude>
+    <ClInclude Include="Manager\File\Component\GameModFileComponent.hpp">
+      <Filter>Manager\File\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager\UI\Component\GameModUIComponent.hpp">
+      <Filter>Manager\UI\Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -65,6 +71,12 @@
     <ClCompile Include="Manager\File\FileManager.cpp">
       <Filter>Manager\File</Filter>
     </ClCompile>
+    <ClCompile Include="Manager\File\Component\GameModFileComponent.cpp">
+      <Filter>Manager\File\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Manager\UI\Component\GameModUIComponent.cpp">
+      <Filter>Manager\UI\Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Manager">
@@ -87,6 +99,9 @@
     </Filter>
     <Filter Include="Manager\File\Component">
       <UniqueIdentifier>{fc16480a-401b-4e73-bc06-82575d12db7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Mods">
+      <UniqueIdentifier>{ab486865-0405-4ce5-bc46-8d9de95fdc0f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
