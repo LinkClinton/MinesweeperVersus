@@ -4,6 +4,9 @@
     <Filter Include="ImGui">
       <UniqueIdentifier>{3c3bbdc0-ba0d-4d6a-aaec-2264b8d794f7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Json">
+      <UniqueIdentifier>{3a5c7f8e-fd14-420c-a494-803e7ff0416e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ImGui\ImGui.cpp">
@@ -19,6 +22,9 @@
     </ClInclude>
     <ClInclude Include="ImGui\imgui_impl_win32.hpp">
       <Filter>ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Json\Json.hpp">
+      <Filter>Json</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

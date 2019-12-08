@@ -27,6 +27,15 @@
     <ClInclude Include="Manager\UI\Component\GameFinishUIComponent.hpp">
       <Filter>Manager\UI\Component</Filter>
     </ClInclude>
+    <ClInclude Include="Manager\File\FileManager.hpp">
+      <Filter>Manager\File</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager\File\Component\FileComponent.hpp">
+      <Filter>Manager\File\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager\File\Component\GameConfigFileComponent.hpp">
+      <Filter>Manager\File\Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -50,6 +59,12 @@
     <ClCompile Include="Manager\UI\Component\GameFinishUIComponent.cpp">
       <Filter>Manager\UI\Component</Filter>
     </ClCompile>
+    <ClCompile Include="Manager\File\Component\GameConfigFileComponent.cpp">
+      <Filter>Manager\File\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Manager\File\FileManager.cpp">
+      <Filter>Manager\File</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Manager">
@@ -66,6 +81,12 @@
     </Filter>
     <Filter Include="Resources\Fonts">
       <UniqueIdentifier>{9ba2aa2a-cdab-46eb-a268-b4d9f49cfee6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\File">
+      <UniqueIdentifier>{c25e2dde-0085-49b5-a603-ed218f278087}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\File\Component">
+      <UniqueIdentifier>{fc16480a-401b-4e73-bc06-82575d12db7b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

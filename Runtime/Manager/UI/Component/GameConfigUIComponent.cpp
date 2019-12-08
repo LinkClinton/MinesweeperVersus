@@ -1,8 +1,11 @@
 #include "GameConfigUIComponent.hpp"
 
+#include "../../File/Component/GameConfigFileComponent.hpp"
+
 #include "../../../../Runtime/MinesweeperApp.hpp"
 #include "../../../../Core/Game/GameContext.hpp"
 
+#include "../../File/FileManager.hpp"
 #include "../UIManager.hpp"
 
 Minesweeper::GameConfigUIComponent::GameConfigUIComponent(const std::shared_ptr<RuntimeSharing>& sharing) :
@@ -12,17 +15,14 @@ Minesweeper::GameConfigUIComponent::GameConfigUIComponent(const std::shared_ptr<
 		std::bind(&GameConfigUIComponent::update, this));
 }
 
-auto Minesweeper::GameConfigUIComponent::isSwapMouseButton() const noexcept -> bool
-{
-	return mSwapMouseButton;
-}
-
 void Minesweeper::GameConfigUIComponent::update()
 {
 	if (mShow == false) return;
 
 	const auto gameContext = mRuntimeSharing->context();
-	
+	const auto gameConfig = std::static_pointer_cast<GameConfigFileComponent>(
+			mRuntimeSharing->fileManager()->components().at("GameConfig"));
+
 	static auto imGuiWindowFlags =
 		ImGuiWindowFlags_NoMove |
 		ImGuiWindowFlags_NoResize |
@@ -37,16 +37,16 @@ void Minesweeper::GameConfigUIComponent::update()
 			mRuntimeSharing->uiManager()->height() * 0.5f
 		));
 
-		auto nMines = static_cast<int>(gameContext->board()->mines().size());
-		auto nHeight = static_cast<int>(gameContext->board()->height());
-		auto nWidth = static_cast<int>(gameContext->board()->width());
+		auto nMines = static_cast<int>(gameConfig->mMines);
+		auto nHeight = static_cast<int>(gameConfig->mHeight);
+		auto nWidth = static_cast<int>(gameConfig->mWidth);
 		auto isChanged = false;
 		
 		isChanged ^= ImGui::InputInt("Mines", &nMines);
 		isChanged ^= ImGui::InputInt("Width", &nWidth);
 		isChanged ^= ImGui::InputInt("Height", &nHeight);
 
-		ImGui::Checkbox("SwapMouseButton", &mSwapMouseButton);
+		ImGui::Checkbox("SwapMouseButton", &gameConfig->mSwapMouseButton);
 
 		nHeight = std::clamp(nHeight, 9, 16);
 		nWidth = std::clamp(nWidth, 9, 30);
@@ -74,9 +74,7 @@ void Minesweeper::GameConfigUIComponent::update()
 					std::to_string(Resolution[index].second);
 				
 				if (ImGui::Selectable(resolution.c_str(), selected)) {
-					mRuntimeSharing->app()->resize(
-						Resolution[index].first,
-						Resolution[index].second);
+					gameConfig->mResolution = Resolution[index];
 				}
 
 				if (selected) ImGui::SetItemDefaultFocus();
@@ -86,6 +84,10 @@ void Minesweeper::GameConfigUIComponent::update()
 		}
 
 		if (isChanged) {
+			gameConfig->mHeight = nHeight;
+			gameConfig->mMines = nMines;
+			gameConfig->mWidth = nWidth;
+			
 			gameContext->setGameBoard(nMines, nHeight, nWidth);
 			
 			gameContext->startGame();

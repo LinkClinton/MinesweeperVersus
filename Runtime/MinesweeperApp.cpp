@@ -3,6 +3,8 @@
 #include "../Extensions/ImGui/imgui_impl_win32.hpp"
 #include "../Core/Game/GameContext.hpp"
 
+#include "Manager/File/Component/GameConfigFileComponent.hpp"
+#include "Manager/File/FileManager.hpp"
 #include "Manager/UI/UIManager.hpp"
 #include "RuntimeSharing.hpp"
 
@@ -82,6 +84,9 @@ Minesweeper::MinesweeperApp::MinesweeperApp(const std::string& name, size_t widt
 
 Minesweeper::MinesweeperApp::~MinesweeperApp()
 {
+	mFileManager->finalize();
+	
+	mUIManager->finalize();
 	ImGui_ImplWin32_Shutdown();
 	ImGui::DestroyContext();
 
@@ -161,6 +166,7 @@ void Minesweeper::MinesweeperApp::initializeCodeRedComponents()
 
 void Minesweeper::MinesweeperApp::initializeManagerComponents()
 {
+	initializeFileManager();
 	initializeUIManager();
 }
 
@@ -172,6 +178,15 @@ void Minesweeper::MinesweeperApp::initializeGameComponents()
 void Minesweeper::MinesweeperApp::update(float delta)
 {
 	mUIManager->update(delta);
+
+	const auto gameConfigFileComponent = 
+		std::static_pointer_cast<GameConfigFileComponent>(mFileManager->components().at("GameConfig"));
+
+	if (gameConfigFileComponent->mResolution.first != mWidth ||
+		gameConfigFileComponent->mResolution.second != mHeight)
+		resize(
+			gameConfigFileComponent->mResolution.first,
+			gameConfigFileComponent->mResolution.second);
 }
 
 void Minesweeper::MinesweeperApp::render(float delta)
@@ -250,6 +265,13 @@ void Minesweeper::MinesweeperApp::initializeSwapChain()
 	mRenderPass->setClear(CodeRed::ClearValue());
 }
 
+void Minesweeper::MinesweeperApp::initializeFileManager()
+{
+	mFileManager = std::make_shared<FileManager>(mRuntimeSharing);
+
+	mFileManager->initialize();
+}
+
 void Minesweeper::MinesweeperApp::initializeUIManager()
 {
 	ImGui::StyleColorsLight();
@@ -261,6 +283,8 @@ void Minesweeper::MinesweeperApp::initializeUIManager()
 		mCommandAllocator,
 		mCommandQueue,
 		width(), height());
+
+	mUIManager->initialize();
 }
 
 void Minesweeper::MinesweeperApp::initializeGameContext()

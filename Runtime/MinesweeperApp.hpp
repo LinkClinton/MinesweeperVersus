@@ -14,6 +14,7 @@ namespace Minesweeper {
 	class GameContext;
 	
 	class RuntimeSharing;
+	class FileManager;
 	class UIManager;
 	
 	class MinesweeperApp final : public Noncopyable {
@@ -68,8 +69,11 @@ namespace Minesweeper {
 
 		void initializeSwapChain();
 	private:
+		std::shared_ptr<FileManager> mFileManager;
 		std::shared_ptr<UIManager> mUIManager;
 
+		void initializeFileManager();
+		
 		void initializeUIManager();
 	private:
 		std::shared_ptr<GameContext> mGameContext;

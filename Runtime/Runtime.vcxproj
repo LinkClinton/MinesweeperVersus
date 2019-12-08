@@ -166,6 +166,9 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Manager\File\Component\FileComponent.hpp" />
+    <ClInclude Include="Manager\File\Component\GameConfigFileComponent.hpp" />
+    <ClInclude Include="Manager\File\FileManager.hpp" />
     <ClInclude Include="Manager\Manager.hpp" />
     <ClInclude Include="Manager\UI\Component\GameConfigUIComponent.hpp" />
     <ClInclude Include="Manager\UI\Component\GameFinishUIComponent.hpp" />
@@ -193,6 +196,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Manager\File\Component\GameConfigFileComponent.cpp" />
+    <ClCompile Include="Manager\File\FileManager.cpp" />
     <ClCompile Include="Manager\UI\Component\GameConfigUIComponent.cpp" />
     <ClCompile Include="Manager\UI\Component\GameFinishUIComponent.cpp" />
     <ClCompile Include="Manager\UI\Component\GameSceneUIComponent.cpp" />

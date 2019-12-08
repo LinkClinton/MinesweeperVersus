@@ -156,6 +156,7 @@
   <ItemGroup>
     <ClInclude Include="ImGui\ImGui.hpp" />
     <ClInclude Include="ImGui\imgui_impl_win32.hpp" />
+    <ClInclude Include="Json\Json.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

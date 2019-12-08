@@ -14,7 +14,11 @@ namespace Minesweeper {
 
 		~Manager() = default;
 
-		virtual void update(float delta) {};
+		virtual void initialize() {};
+
+		virtual void finalize() {};
+		
+		virtual void update(float delta) {}
 	protected:
 		std::shared_ptr<RuntimeSharing> mRuntimeSharing;
 	};

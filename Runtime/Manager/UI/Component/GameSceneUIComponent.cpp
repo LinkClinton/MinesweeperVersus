@@ -2,8 +2,9 @@
 
 #include "../../../../Core/Game/GameContext.hpp"
 
-#include "GameConfigUIComponent.hpp"
+#include "../../File/Component/GameConfigFileComponent.hpp"
 
+#include "../../File/FileManager.hpp"
 #include "../UIManager.hpp"
 
 Minesweeper::GameSceneUIComponent::GameSceneUIComponent(const std::shared_ptr<RuntimeSharing>& sharing) :
@@ -60,11 +61,11 @@ void Minesweeper::GameSceneUIComponent::update()
 		extent - ImGui::GetStyle().FramePadding.y,
 		extent - ImGui::GetStyle().FramePadding.y);
 
-	const auto gameConfig = std::static_pointer_cast<GameConfigUIComponent>(
-		mRuntimeSharing->uiManager()->components().at("GameConfig"));
+	const auto gameConfig = std::static_pointer_cast<GameConfigFileComponent>(
+		mRuntimeSharing->fileManager()->components().at("GameConfig"));
 
-	const auto checkButton = gameConfig->isSwapMouseButton() ? 1 : 0;
-	const auto flagsButton = gameConfig->isSwapMouseButton() ? 0 : 1;
+	const auto checkButton = gameConfig->mSwapMouseButton ? 1 : 0;
+	const auto flagsButton = gameConfig->mSwapMouseButton ? 0 : 1;
 
 	mNextHoverMapped.clear();
 

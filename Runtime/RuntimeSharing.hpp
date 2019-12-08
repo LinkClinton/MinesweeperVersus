@@ -10,12 +10,15 @@ namespace Minesweeper {
 
 	class MinesweeperApp;
 	class GameContext;
+	class FileManager;
 	class UIManager;
 	
 	class RuntimeSharing : public Noncopyable {
 	public:
 		explicit RuntimeSharing(MinesweeperApp* minesweeperApp);
 
+		auto fileManager() const noexcept -> std::shared_ptr<FileManager>;
+		
 		auto uiManager() const noexcept -> std::shared_ptr<UIManager>;
 
 		auto app() const noexcept -> MinesweeperApp*;

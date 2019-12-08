@@ -8,6 +8,11 @@ Minesweeper::RuntimeSharing::RuntimeSharing(MinesweeperApp* minesweeperApp)
 	
 }
 
+auto Minesweeper::RuntimeSharing::fileManager() const noexcept -> std::shared_ptr<FileManager>
+{
+	return mMinesweeperApp->mFileManager;
+}
+
 auto Minesweeper::RuntimeSharing::uiManager() const noexcept -> std::shared_ptr<UIManager>
 {
 	return mMinesweeperApp->mUIManager;
