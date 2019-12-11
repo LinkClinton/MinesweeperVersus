@@ -338,5 +338,4 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
-/Runtime/Resources/Fonts/Consola.ttf
 /Runtime/Resources/Mods
