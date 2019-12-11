@@ -18,6 +18,7 @@ void Minesweeper::MainMenuUIComponent::update()
 	if (mShow == false) return;
 
 	auto openGameConfig = false;
+	auto openGameMod = false;
 	
 	ImGui::BeginMainMenuBar();
 
@@ -27,6 +28,12 @@ void Minesweeper::MainMenuUIComponent::update()
 			mRuntimeSharing->context()->startGame();
 		}
 
+		if (ImGui::MenuItem("Mod")) {
+			mRuntimeSharing->uiManager()->components().at("GameMod")->show();
+
+			openGameMod = true;
+		}
+		
 		if (ImGui::MenuItem("Config")) {
 			mRuntimeSharing->uiManager()->components().at("GameConfig")->show();
 
@@ -54,6 +61,7 @@ void Minesweeper::MainMenuUIComponent::update()
 	ImGui::EndMainMenuBar();
 
 	if (openGameConfig) ImGui::OpenPopup("GameConfig");
+	if (openGameMod) ImGui::OpenPopup("GameMod");
 }
 
 auto Minesweeper::MainMenuUIComponent::nameIndex(const std::string& name) const -> size_t

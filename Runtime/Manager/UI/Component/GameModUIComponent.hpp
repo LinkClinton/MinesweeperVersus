@@ -12,6 +12,8 @@ namespace Minesweeper {
 		~GameModUIComponent() = default;
 	private:
 		void update();
+	private:
+		std::pair<std::string, std::string> mCurrent;
 	};
 	
 }

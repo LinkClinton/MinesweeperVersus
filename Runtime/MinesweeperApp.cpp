@@ -4,6 +4,7 @@
 #include "../Core/Game/GameContext.hpp"
 
 #include "Manager/File/Component/GameConfigFileComponent.hpp"
+#include "Manager/File/Component/GameModFileComponent.hpp"
 #include "Manager/File/FileManager.hpp"
 #include "Manager/UI/UIManager.hpp"
 #include "RuntimeSharing.hpp"
@@ -289,9 +290,12 @@ void Minesweeper::MinesweeperApp::initializeUIManager()
 
 void Minesweeper::MinesweeperApp::initializeGameContext()
 {
+	auto gameConfig = std::static_pointer_cast<GameConfigFileComponent>(
+		mFileManager->components().at("GameConfig"));
+	
 	mGameContext = std::make_shared<GameContext>();
 
-	mGameContext->setGameBoard(100, 16, 30);
+	mGameContext->setGameBoard(gameConfig->mMines, gameConfig->mHeight, gameConfig->mWidth);
 	mGameContext->startGame();
 }
 

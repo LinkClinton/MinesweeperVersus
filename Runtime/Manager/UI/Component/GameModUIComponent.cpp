@@ -23,6 +23,8 @@ void Minesweeper::GameModUIComponent::update()
 	const auto gameContext = mRuntimeSharing->context();
 	const auto gameConfig = std::static_pointer_cast<GameConfigFileComponent>(
 		mRuntimeSharing->fileManager()->components().at("GameConfig"));
+	const auto gameMod = std::static_pointer_cast<GameModFileComponent>(
+		mRuntimeSharing->fileManager()->components().at("GameMod"));
 
 	static auto imGuiWindowFlags =
 		ImGuiWindowFlags_NoMove |
@@ -38,10 +40,33 @@ void Minesweeper::GameModUIComponent::update()
 			mRuntimeSharing->uiManager()->height() * 0.5f
 		));
 
+		auto modsName = std::vector<const char*>(gameMod->mods().size());
+		auto current = 0;
+		
+		for (size_t index = 0; index < modsName.size(); index++) {
+			if (mCurrent == std::make_pair(gameMod->mods()[index].mName, gameMod->mods()[index].mAuthor))
+				current = static_cast<int>(index);
+			
+			modsName[index] = gameMod->mods()[index].mName.c_str();
+		}
+		
+		ImGui::ListBox("##ModList", &current, modsName.data(), 
+			static_cast<int>(modsName.size()), 
+			static_cast<int>(mRuntimeSharing->uiManager()->height() / 54));
+
+		ImGui::SameLine();
+		ImGui::TextWrapped("Name   : %s\nAuthor : %s\n\n\n%s\n",
+			gameMod->mods()[current].mName.c_str(),
+			gameMod->mods()[current].mAuthor.c_str(),
+			gameMod->mods()[current].mDescription.c_str());
+		
+		
 		ImGui::PopStyleColor();
 
 		updateProperties();
 
 		ImGui::EndPopup();
+
+		mCurrent = { gameMod->mods()[current].mName, gameMod->mods()[current].mAuthor };
 	}
 }

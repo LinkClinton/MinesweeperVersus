@@ -26,6 +26,8 @@ void Minesweeper::GameConfigFileComponent::load(const std::string& fileName)
 	mSwapMouseButton = config["swapMouseButton"];
 	mResolution.first = config["resolution"]["width"];
 	mResolution.second = config["resolution"]["height"];
+	mGenerator.first = config["generator"]["name"];
+	mGenerator.second = config["generator"]["author"];
 
 	file.close();
 }
@@ -45,6 +47,12 @@ void Minesweeper::GameConfigFileComponent::save(const std::string& fileName)
 			{
 				{ "width", mResolution.first },
 				{ "height", mResolution.second }
+			}
+		},
+		{ "generator",
+			{
+				{ "name", mGenerator.first },
+				{ "author", mGenerator.second }
 			}
 		}
 	};

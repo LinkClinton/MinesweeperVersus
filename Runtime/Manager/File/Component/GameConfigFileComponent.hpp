@@ -19,6 +19,7 @@ namespace Minesweeper {
 		bool mSwapMouseButton = false;
 		
 		std::pair<size_t, size_t> mResolution = { 1920, 1080 };
+		std::pair<std::string, std::string> mGenerator;
 	};
 	
 }

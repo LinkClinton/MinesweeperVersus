@@ -1,4 +1,8 @@
 {
+    "generator": {
+        "author": "link",
+        "name": "secondMod"
+    },
     "height": 16,
     "mines": 100,
     "resolution": {
