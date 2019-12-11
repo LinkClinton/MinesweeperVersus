@@ -25,7 +25,7 @@ void Minesweeper::GameContext::setGameBoard(
 
 void Minesweeper::GameContext::startGame()
 {
-	const auto mines = mMinesGenerator->generate(mBoardWidth, mBoardHeight, mMines);
+	const auto mines = mMinesGenerator->get(mBoardWidth, mBoardHeight, mMines);
 	
 	mGameBoard = std::make_shared<GameBoard>(mines, mBoardHeight, mBoardWidth);
 	mGameRuntime = std::make_shared<GameRuntime>(mGameBoard);

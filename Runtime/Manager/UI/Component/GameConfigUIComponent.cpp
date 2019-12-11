@@ -3,6 +3,8 @@
 #include "../../File/Component/GameConfigFileComponent.hpp"
 #include "../../File/Component/GameModFileComponent.hpp"
 
+#include "../../../Import/ImportMinesGenerator.hpp"
+
 #include "../../../../Runtime/MinesweeperApp.hpp"
 #include "../../../../Core/Game/GameContext.hpp"
 
@@ -97,6 +99,8 @@ void Minesweeper::GameConfigUIComponent::update()
 				if (ImGui::Selectable(mod.mName.c_str(), selected)) {
 					gameConfig->mGenerator.first = mod.mName;
 					gameConfig->mGenerator.second = mod.mAuthor;
+					gameContext->setMinesGenerator(std::make_shared<ImportMinesGenerator>(mod.mPath));
+					gameContext->startGame();
 				}
 
 				if (selected) ImGui::SetItemDefaultFocus();

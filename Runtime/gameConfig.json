@@ -1,7 +1,7 @@
 {
     "generator": {
-        "author": "link",
-        "name": "secondMod"
+        "author": "Rusty Link",
+        "name": "RandomMines"
     },
     "height": 16,
     "mines": 100,

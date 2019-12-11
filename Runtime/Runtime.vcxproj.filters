@@ -42,6 +42,9 @@
     <ClInclude Include="Manager\UI\Component\GameModUIComponent.hpp">
       <Filter>Manager\UI\Component</Filter>
     </ClInclude>
+    <ClInclude Include="Import\ImportMinesGenerator.hpp">
+      <Filter>Import</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -77,6 +80,9 @@
     <ClCompile Include="Manager\UI\Component\GameModUIComponent.cpp">
       <Filter>Manager\UI\Component</Filter>
     </ClCompile>
+    <ClCompile Include="Import\ImportMinesGenerator.cpp">
+      <Filter>Import</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Manager">
@@ -102,6 +108,9 @@
     </Filter>
     <Filter Include="Resources\Mods">
       <UniqueIdentifier>{ab486865-0405-4ce5-bc46-8d9de95fdc0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Import">
+      <UniqueIdentifier>{8852c875-6b9c-4f49-a4e6-2de309e7ecee}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

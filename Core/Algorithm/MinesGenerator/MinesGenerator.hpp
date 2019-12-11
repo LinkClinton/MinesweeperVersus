@@ -15,7 +15,7 @@ namespace Minesweeper {
 
 		~MinesGenerator() = default;
 
-		virtual auto generate(
+		virtual auto get(
 			const size_t width, const size_t height, 
 			const std::optional<size_t>& nMines = std::nullopt, 
 			const std::any& any = nullptr)

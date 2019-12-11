@@ -1,7 +1,10 @@
 #include "MinesweeperApp.hpp"
 
 #include "../Extensions/ImGui/imgui_impl_win32.hpp"
+
 #include "../Core/Game/GameContext.hpp"
+
+#include "Import/ImportMinesGenerator.hpp"
 
 #include "Manager/File/Component/GameConfigFileComponent.hpp"
 #include "Manager/File/Component/GameModFileComponent.hpp"
@@ -292,9 +295,20 @@ void Minesweeper::MinesweeperApp::initializeGameContext()
 {
 	auto gameConfig = std::static_pointer_cast<GameConfigFileComponent>(
 		mFileManager->components().at("GameConfig"));
+	auto gameMod = std::static_pointer_cast<GameModFileComponent>(
+		mFileManager->components().at("GameMod"));
 	
 	mGameContext = std::make_shared<GameContext>();
 
+	for (size_t index = 0; index < gameMod->mods().size(); index++) {
+		const auto mod = gameMod->mods()[index];
+		
+		if (gameConfig->mGenerator.first == mod.mName &&
+			gameConfig->mGenerator.second == mod.mAuthor) {
+			mGameContext->setMinesGenerator(std::make_shared<ImportMinesGenerator>(mod.mPath));
+		}
+	}
+	
 	mGameContext->setGameBoard(gameConfig->mMines, gameConfig->mHeight, gameConfig->mWidth);
 	mGameContext->startGame();
 }
