@@ -55,18 +55,23 @@ void Minesweeper::GameModUIComponent::update()
 			static_cast<int>(mRuntimeSharing->uiManager()->height() / 54));
 
 		ImGui::SameLine();
-		ImGui::TextWrapped("Name   : %s\nAuthor : %s\n\n\n%s\n",
-			gameMod->mods()[current].mName.c_str(),
-			gameMod->mods()[current].mAuthor.c_str(),
-			gameMod->mods()[current].mDescription.c_str());
-		
+
+		if (!gameMod->mods().empty()) {
+			ImGui::TextWrapped("Name   : %s\nAuthor : %s\n\n\n%s\n",
+				gameMod->mods()[current].mName.c_str(),
+				gameMod->mods()[current].mAuthor.c_str(),
+				gameMod->mods()[current].mDescription.c_str());
+
+			mCurrent = { gameMod->mods()[current].mName, gameMod->mods()[current].mAuthor };
+		}else {
+			mCurrent = { "", "" };
+		}
 		
 		ImGui::PopStyleColor();
 
 		updateProperties();
 
 		ImGui::EndPopup();
-
-		mCurrent = { gameMod->mods()[current].mName, gameMod->mods()[current].mAuthor };
+		
 	}
 }
